@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: bitcoinminer
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn bitcoinminer.wsgi
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: bitcoinminer.settings
+      - key: SECRET_KEY
+        value: une_clé_secrète_que_tu_inventes
+      - key: DEBUG
+        value: False

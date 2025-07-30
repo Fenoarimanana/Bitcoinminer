@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Deposit - Bitcoin Miner</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: radial-gradient(circle at 50% 30%, #ff9900 0%, #222 80%);
+            min-height: 100vh;
+        }
+        .bitcoin-card {
+            background: rgba(34, 34, 34, 0.97);
+            border: 2px solid #ff9900;
+            border-radius: 18px;
+            box-shadow: 0 0 30px #ff990055;
+            color: #fff;
+            max-width: 420px;
+            margin: auto;
+        }
+        .section-title {
+            color: #ff9900;
+            font-weight: bold;
+        }
+        .btc-address {
+            background: #222;
+            color: #ff9900;
+            border: 1px solid #ff9900;
+            border-radius: 8px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+        .btn-btc {
+            background: linear-gradient(90deg, #ff9900 60%, #ffd700 100%);
+            color: #222;
+            font-weight: bold;
+            border: none;
+            border-radius: 30px;
+            box-shadow: 0 2px 8px #ff990055;
+        }
+        .btn-btc:hover {
+            background: linear-gradient(90deg, #ffd700 60%, #ff9900 100%);
+            color: #222;
+        }
+        .btn-back {
+            border: 2px solid #ff9900;
+            color: #ff9900;
+            font-weight: bold;
+            border-radius: 30px;
+            background: transparent;
+        }
+        .btn-back:hover {
+            background: #ff9900;
+            color: #222;
+        }
+    </style>
+</head>
+<body>
+<div class="container py-5">
+    <div class="bitcoin-card p-4">
+    <div class="text-center mb-3">
+        <img src="https://cryptologos.cc/logos/bitcoin-btc-logo.png" alt="Bitcoin" width="50">
+        <h3 class="section-title mt-2">Make a Deposit</h3>
+    </div>
+    <div class="alert alert-warning" style="background:#222; color:#ff9900; border:1px solid #ff9900;">
+        <b>How to deposit:</b><br>
+        1. Send at least <b>$2</b> worth of Bitcoin to the address below.<br>
+        2. Once you have sent the payment, enter the exact amount in USD you deposited in the field below.<br>
+        3. Click <b>Confirm Deposit</b> and wait for admin confirmation before your mining speed is activated.<br>
+    </div>
+    <p><strong style="color:#ffd700;">Minimum Deposit:</strong> $2</p>
+    <p>Send your Bitcoin to this address:</p>
+    <input type="text" class="form-control btc-address mb-3" value="{{ btc_address }}" readonly>
+    <form method="post">
+        {% csrf_token %}
+        <label class="mb-1">Amount in USD</label>
+        <input type="number" step="0.01" name="amount" class="form-control mb-3" required>
+        <button type="submit" class="btn btn-btc w-100 mb-2">Confirm Deposit</button>
+    </form>
+    <a href="/dashboard/" class="btn btn-back w-100 mt-2">Back to Dashboard</a>
+</div>
+</div>
+</body>
+</html>
