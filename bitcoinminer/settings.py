@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-@u)$jbo*s@+@^*58dv+u71szb77*cf#hnlcah)fxc2bj^5@^c4
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['bitcoinminers.onrender.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
