@@ -78,6 +78,37 @@
         <button type="submit" class="btn btn-btc w-100 mb-2">Confirm Deposit</button>
     </form>
     <a href="/dashboard/" class="btn btn-back w-100 mt-2">Back to Dashboard</a>
+    <h4 class="mt-4 mb-2" style="color:#ffd700;">Deposit History</h4>
+<table class="table table-dark table-striped">
+    <thead>
+        <tr>
+            <th>User</th>
+            <th>Amount ($)</th>
+            <th>Date</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Dépôts factices -->
+        {% for dep in fake_deposits %}
+        <tr>
+            <td>{{ dep.username }}</td>
+            <td>{{ dep.amount }}</td>
+            <td>{{ dep.date }}</td>
+            <td>{{ dep.status }}</td>
+        </tr>
+        {% endfor %}
+        <!-- Dépôts réels de l'utilisateur -->
+        {% for dep in user_deposits %}
+        <tr>
+            <td>{{ request.user.username }}</td>
+            <td>{{ dep.amount }}</td>
+            <td>{{ dep.date|date:"Y-m-d H:i" }}</td>
+            <td>{{ dep.status }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
 </div>
 </div>
 </body>

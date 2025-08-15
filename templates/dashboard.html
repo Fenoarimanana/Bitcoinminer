@@ -100,10 +100,11 @@
     2. When someone registers using your link and makes a deposit, you will receive a <b>20% bonus</b> based on their deposit amount.<br>
     3. The more people you invite, the more you can earn!<br>
     4. You can track your referrals and bonuses in your dashboard.<br>
-</div>
-    <div class="bitcoin-card p-3 mx-auto" style="max-width: 430px;">
-        <div class="section-title mb-2">Your Referral Link</div>
-        <input type="text" class="form-control ref-link mb-2" value="{{ referral_link }}" readonly>
+<div class="bitcoin-card p-3 mx-auto" style="max-width: 430px;">
+    <div class="section-title mb-2">Your Referral Link</div>
+    <input type="text" class="form-control ref-link mb-2" value="{{ referral_link }}" readonly>
+    <div class="mt-2" style="color:#ffd700;">
+        <b>Number of referrals:</b> {{ referral_count }}
     </div>
 </div>
 <script>

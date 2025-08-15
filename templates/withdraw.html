@@ -71,6 +71,37 @@
         <button type="submit" class="btn btn-btc w-100 mb-2">Request Withdraw</button>
     </form>
     <a href="/dashboard/" class="btn btn-back w-100 mt-2">Back to Dashboard</a>
+    <h4 class="mt-4 mb-2" style="color:#ffd700;">Withdraw History</h4>
+<table class="table table-dark table-striped">
+    <thead>
+        <tr>
+            <th>User</th>
+            <th>Amount ($)</th>
+            <th>Date</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Retraits factices -->
+        {% for wd in fake_withdraws %}
+        <tr>
+            <td>{{ wd.username }}</td>
+            <td>{{ wd.amount }}</td>
+            <td>{{ wd.date }}</td>
+            <td>{{ wd.status }}</td>
+        </tr>
+        {% endfor %}
+        <!-- Retraits réels de l'utilisateur -->
+        {% for wd in user_withdraws %}
+        <tr>
+            <td>{{ request.user.username }}</td>
+            <td>{{ wd.amount }}</td>
+            <td>{{ wd.date|date:"Y-m-d H:i" }}</td>
+            <td>{{ wd.status }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
 </div>
 </div>
 </body>

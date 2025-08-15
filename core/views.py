@@ -50,9 +50,11 @@ def dashboard_view(request):
     profile.mined_amount += profile.mining_speed * 0.00001
     profile.save()
     referral_link = request.build_absolute_uri(f"/register/?ref={profile.referral_code}")
+    referral_count = profile.user.referrals.count() 
     return render(request, 'dashboard.html', {
         'profile': profile,
-        'referral_link': referral_link
+        'referral_link': referral_link,
+        'referral_count': referral_count,
     })
 
 @login_required
@@ -60,11 +62,21 @@ def deposit_view(request):
     if request.method == 'POST':
         amount = float(request.POST['amount'])
         if amount >= 2:
-            # request.user.profile.mining_speed += amount * 0.00005
-            # request.user.profile.save()
-            Deposit.objects.create(user=request.user, amount=amount, status='Pending' )
+            Deposit.objects.create(user=request.user, amount=amount, status='Pending')
             return redirect('dashboard')
-    return render(request, 'deposit.html', {"btc_address": "13ZYu5dRtP8kHrunXXHuDMBoRwaLAr6MCE"})
+    # Dépôts réels de l'utilisateur
+    user_deposits = Deposit.objects.filter(user=request.user).order_by('-date')[:5]
+    # Dépôts factices (exemple)
+    fake_deposits = [
+        {'username': 'Alice', 'amount': 10, 'date': '2025-08-10', 'status': 'Confirmed'},
+        {'username': 'Bob', 'amount': 5, 'date': '2025-08-09', 'status': 'Confirmed'},
+        {'username': 'Charlie', 'amount': 2, 'date': '2025-08-08', 'status': 'Pending'},
+    ]
+    return render(request, 'deposit.html', {
+        "btc_address": "13ZYu5dRtP8kHrunXXHuDMBoRwaLAr6MCE",
+        "user_deposits": user_deposits,
+        "fake_deposits": fake_deposits,
+    })
 
 @login_required
 def withdraw_view(request):
@@ -78,5 +90,16 @@ def withdraw_view(request):
                 btc_address=btc_address,
                 status='Pending'
             )
-            return redirect('withdraw_success')
-    return render(request, 'withdraw.html')
+            return redirect('dashboard')
+    # Retraits réels de l'utilisateur
+    user_withdraws = Withdraw.objects.filter(user=request.user).order_by('-date')[:5]
+    # Retraits factices (exemple)
+    fake_withdraws = [
+        {'username': 'Alice', 'amount': 20, 'date': '2025-08-10', 'status': 'Confirmed'},
+        {'username': 'Bob', 'amount': 15, 'date': '2025-08-09', 'status': 'Confirmed'},
+        {'username': 'Charlie', 'amount': 10, 'date': '2025-08-08', 'status': 'Pending'},
+    ]
+    return render(request, 'withdraw.html', {
+        "user_withdraws": user_withdraws,
+        "fake_withdraws": fake_withdraws,
+    })
